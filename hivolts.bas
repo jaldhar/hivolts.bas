@@ -193,6 +193,23 @@
 8180 IF P(I,2) > P(13,2) THEN LET P(I,2) = P(I, 2) - 1 : GOTO 8060
 8190 GOTO 8060
 
+# special handling for mhos moving diagonally
+8200 DIM D(3,2)
+8210 LET D(1,1) = P(I,1) + M1 : LET D(1,2) = P(I,2) + M2
+8220 LET D(2,1) = P(I,1) : LET D(2,2) = P(I,2) + M2
+8230 LET D(3,1) = P(I,1) + M1 : LET D(3,2) = P(I,2)
+8240 FOR J = 1 TO 3
+8250 FOR K = 1 TO 12
+8260 IF I = K OR (P(K,1) = 0 AND P(K,2) = 0) THEN GOTO 8280
+8270 IF D(J,1) = P(K,1) AND D(J,2) = P(K,2) THEN GOTO 8300
+8280 NEXT K
+8290 IF B(D(J,1),D(J,2)) = 1 THEN GOTO 8310
+8300 LET P(I,1) = D(J,1) : LET P(I,2) = D(J,2) : GOTO 8060
+8310 NEXT J
+8320 FOR J = 1 TO 3
+8330 IF B(D(J,1),D(J,2)) = 1 : LET P(I,1) = D(J,1) : LET P(I,2) = D(J,2) : GOTO 8060
+8340 NEXT J
+8350 GOTO 8060
 
 # check collisions
 8900 FOR I = 1 TO 12
