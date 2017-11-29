@@ -7,7 +7,7 @@
 #
 EMULATOR=fuse-sdl
 
-hivolts.tap:
+hivolts.tap: hivolts.bas
 	zmakebas -o hivolts.tap hivolts.bas
 
 run: hivolts.tap
